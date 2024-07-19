@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> luckyNumbers (vector<vector<int>>& matrix) {
+        vector<int> luckyNumbers;
+        for (int i = 0; i < matrix.size(); ++i) {
+            int minRow = *min_element(matrix[i].begin(), matrix[i].end());
+            int minRowIndex = min_element(matrix[i].begin(), matrix[i].end()) - matrix[i].begin();
+            
+            bool isLucky = true;
+            for (int k = 0; k < matrix.size(); ++k) {
+                if (matrix[k][minRowIndex] > minRow) {
+                    isLucky = false;
+                    break;
+                }
+            }
+            
+            if (isLucky) {
+                luckyNumbers.push_back(minRow);
+            }
+        }
+        
+        return luckyNumbers;
+
+    }
+};
