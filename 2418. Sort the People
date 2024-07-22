@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<string> sortPeople(vector<string>& names, vector<int>& heights) {
+        std::unordered_map<int, std::string> heightMap;
+
+    // Insert names and heights into the hashmap
+    for (size_t i = 0; i < names.size(); ++i) {
+        heightMap[heights[i]] = names[i];
+    }
+
+    // Extract the heights into a vector
+    std::vector<int> sortedHeights = heights;
+
+    // Sort the heights in descending order
+    std::sort(sortedHeights.begin(), sortedHeights.end(), std::greater<int>());
+
+    // Create a result vector to store the sorted names
+    std::vector<std::string> sortedNames;
+
+    for (int height : sortedHeights) {
+        sortedNames.push_back(heightMap[height]);
+    }
+
+    return sortedNames;
+    }
+};
