@@ -1,0 +1,36 @@
+#include <vector>
+#include <iostream>
+using namespace std;
+
+double averageWaitingTime(vector<vector<int>>& customers) {
+    long long total_waiting_time = 0;
+    int current_time = 0;
+    
+    for (const auto& customer : customers) {
+        int arrival = customer[0];
+        int time = customer[1];
+        // The chef starts the current order at max(current_time, arrival)
+        int start_time = max(current_time, arrival);
+        // The end time of the current order
+        int end_time = start_time + time;
+        // Waiting time for the current customer
+        int waiting_time = end_time - arrival;
+        // Add the current waiting time to the total waiting time
+        total_waiting_time += waiting_time;
+        // Update the current time to the end time of the current order
+        current_time = end_time;
+    }
+    
+    // Calculate and return the average waiting time
+    return static_cast<double>(total_waiting_time) / customers.size();
+}
+
+int main() {
+    vector<vector<int>> customers1 = {{1, 2}, {2, 5}, {4, 3}};
+    cout << "Average waiting time: " << averageWaitingTime(customers1) << endl;  // Output: 5.00000
+    
+    vector<vector<int>> customers2 = {{5, 2}, {5, 4}, {10, 3}, {20, 1}};
+    cout << "Average waiting time: " << averageWaitingTime(customers2) << endl;  // Output: 3.25000
+
+    return 0;
+}
