@@ -1,0 +1,5 @@
+Bubble Sort: Repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order.
+Selection Sort: Finds the smallest (or largest) element in an unsorted list and moves it to the beginning (or end) of the list.
+Insertion Sort: Builds the final sorted list one item at a time by repeatedly picking the next item and inserting it into the correct position.
+Merge Sort: Divides the list into two halves, sorts each half, and then merges the sorted halves back together.
+Quick Sort: Picks an element as a pivot, partitions the list into elements less than and greater than the pivot, and recursively sorts the sublists.
