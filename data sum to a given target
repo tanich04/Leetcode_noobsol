@@ -1,0 +1,38 @@
+struct Node {
+    int data;
+    Node* next;
+    Node* prev;
+    Node(int val) : data(val), next(nullptr), prev(nullptr) {}
+};
+
+class Solution {
+public:
+    vector<pair<int, int>> findPairsWithGivenSum(Node* head, int target) {
+        vector<pair<int, int>> res;
+        if (!head) return res;  // Return if the list is empty
+
+        Node* left = head;
+        Node* right = head;
+
+        // Move `right` to the last node
+        while (right->next != nullptr) {
+            right = right->next;
+        }
+
+        // Use two-pointer technique to find pairs
+        while (left != right && right->next != left) {
+            int sum = left->data + right->data;
+            if (sum == target) {
+                res.push_back(make_pair(left->data, right->data));
+                left = left->next;
+                right = right->prev;
+            } else if (sum < target) {
+                left = left->next;
+            } else {
+                right = right->prev;
+            }
+        }
+
+        return res;
+    }
+};
