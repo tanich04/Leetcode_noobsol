@@ -1,0 +1,36 @@
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if (head == NULL || head->next == NULL || k == 0) {
+            return head;
+        }
+        
+        // Step 1: Compute the length of the list
+        int cnt = 1; // Starting from 1 because we're starting with the head node
+        ListNode* tail = head;
+        while (tail->next != NULL) {
+            tail = tail->next;
+            cnt++;
+        }
+        
+        // Step 2: Normalize k to ensure it's within the bounds of the list's length
+        k = k % cnt;
+        if (k == 0) return head; // No rotation needed
+        
+        // Step 3: Find the new tail and the new head
+        int stepsToNewHead = cnt - k; // The new head will be at this position
+        ListNode* newTail = head;
+        for (int i = 1; i < stepsToNewHead; ++i) {
+            newTail = newTail->next;
+        }
+        ListNode* newHead = newTail->next;
+        
+        // Step 4: Rotate the list
+        newTail->next = NULL; // Break the link to finalize the new tail
+        tail->next = head;    // Connect the end of the list to the old head
+        
+        return newHead;
+    }
+    
+    
+};
