@@ -1,0 +1,33 @@
+#include <vector>
+#include <algorithm>
+
+class Solution {
+public:
+    int minSwaps(std::vector<int>& nums) {
+        int totalOnes = std::count(nums.begin(), nums.end(), 1);
+        int n = nums.size();
+        
+        if (totalOnes == 0) return 0;  // No swaps needed if there are no 1's
+        
+        // Create an extended array to handle circular nature
+        std::vector<int> extended(nums.begin(), nums.end());
+        extended.insert(extended.end(), nums.begin(), nums.end());
+        
+        // Sliding window to find the maximum number of 1's in any window of length totalOnes
+        int maxOnesInWindow = 0;
+        int currentOnes = 0;
+        
+        for (int i = 0; i < totalOnes; ++i) {
+            currentOnes += extended[i];
+        }
+        
+        maxOnesInWindow = currentOnes;
+        
+        for (int i = totalOnes; i < extended.size(); ++i) {
+            currentOnes += extended[i] - extended[i - totalOnes];
+            maxOnesInWindow = std::max(maxOnesInWindow, currentOnes);
+        }
+        
+        return totalOnes - maxOnesInWindow;
+    }
+};
