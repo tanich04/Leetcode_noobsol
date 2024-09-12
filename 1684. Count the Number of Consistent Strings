@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int countConsistentStrings(string allowed, vector<string>& words) {
+        // Step 1: Create an array to mark the allowed characters
+        vector<bool> allowedChars(26, false);
+        for (char c : allowed) {
+            allowedChars[c - 'a'] = true;
+        }
+
+        // Step 2: Count the number of consistent strings
+        int res = 0;
+        for (string word : words) {
+            bool isConsistent = true;
+            for (char c : word) {
+                if (!allowedChars[c - 'a']) {
+                    isConsistent = false;
+                    break;
+                }
+            }
+            if (isConsistent) {
+                res++;
+            }
+        }
+
+        return res;
+    }
+};
